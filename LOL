@@ -1,0 +1,84 @@
+ // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "",
+    authDomain: "",
+    databaseURL: "",
+    projectId: "",
+    storageBucket: "",
+    messagingSenderId: "",
+    appId: ""
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  
+const auth = firebase.auth();
+  
+
+  function signUp(){
+
+
+    var email = document.getElementById("email");
+    var password = document.getElementById("password");
+    
+    const promise = auth.createUserWithEmailAndPassword(email.value, password.value);
+    promise.catch(e => alert(e.message));
+    alert("Signed Up");
+  }
+  
+function signIn(){
+    
+    var email = document.getElementById("email");
+    var password = document.getElementById("password");
+    const promise = auth.signInWithEmailAndPassword(email.value, password.value);
+    promise.catch(e => alert(e.message));
+   }
+
+function checkAccess() {
+  auth.onAuthStateChanged(function(user){
+     if (!user) {//isn't logged in
+       window.location = 'index.php';
+       alert('Access denied!');
+       console.console.log("s");
+  }
+  });
+}   
+
+
+  function signOut(){
+    
+    auth.signOut();
+    alert("Signed Out");
+     window.location = 'index.php';
+  }
+//Hamido@gmail.com
+
+
+   /*auth.onAuthStateChanged(function(user){
+    
+    if(user){
+      
+      var email = user.email;
+     // alert("Active User " + email);
+      
+      //Take user to a different or home page
+
+      //is signed in
+      window.location = 'home.php#Login';
+    }else{
+      
+    //  alert("No Active User");
+      //no user is signed in
+    }
+    });*/
+
+
+
+  auth.onAuthStateChanged(function(user){
+    
+    if(user){
+      var email = user.email;
+      window.location = 'home.php#Login';
+    }else {
+      
+    }
+    });
